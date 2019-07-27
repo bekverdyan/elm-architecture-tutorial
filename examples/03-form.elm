@@ -4,7 +4,7 @@ import Array
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
+import Html.Events exposing (onClick, onInput)
 
 
 
@@ -24,12 +24,13 @@ type alias Model =
     , age : String
     , password : String
     , passwordAgain : String
+    , submited : Bool
     }
 
 
 init : Model
 init =
-    Model "" "" "" ""
+    Model "" "" "" "" False
 
 
 
@@ -41,6 +42,7 @@ type Msg
     | Age String
     | Password String
     | PasswordAgain String
+    | Submit
 
 
 update : Msg -> Model -> Model
@@ -58,6 +60,9 @@ update msg model =
         PasswordAgain password ->
             { model | passwordAgain = password }
 
+        Submit ->
+            { model | submited = True }
+
 
 
 -- VIEW
@@ -70,7 +75,12 @@ view model =
         , viewInput "text" "Age" model.age Age
         , viewInput "password" "Password" model.password Password
         , viewInput "password" "Re-enter Password" model.passwordAgain PasswordAgain
-        , viewValidation model
+        , button [ onClick Submit ] [ text "Submit" ]
+        , if model.submited then
+            viewValidation model
+
+          else
+            div [] []
         ]
 
 
