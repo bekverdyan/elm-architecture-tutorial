@@ -113,6 +113,8 @@ view model =
         , viewConverter temperature model.inputTemp model.convertedTemp TemperatureInput
         , h3 [] [ text heft.name ]
         , viewConverter heft model.inputHeft model.convertedHeft HeftInput
+        , h3 [] [ text length.name ]
+        , viewConverter length model.inputLength model.convertedLength LengthInput
         ]
 
 
@@ -124,6 +126,11 @@ temperature =
 heft : Measurment
 heft =
     { name = "Heft", convertibleSymbol = "kilo", convertedSymbol = "lbs" }
+
+
+length : Measurment
+length =
+    { name = "Length", convertibleSymbol = "meter", convertedSymbol = "feet" }
 
 
 viewConverter : Measurment -> String -> Maybe Float -> (String -> Msg) -> Html Msg
