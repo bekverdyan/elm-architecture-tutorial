@@ -36,20 +36,20 @@ init =
 
 
 type Msg
-    = InputTemperature String
-    | InputHeft String
+    = TemperatureInput String
+    | HeftInput String
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        InputTemperature convertible ->
+        TemperatureInput convertible ->
             { model
                 | inputTemp = convertible
                 , convertedTemp = temperatureConverter (String.toFloat convertible)
             }
 
-        InputHeft convertible ->
+        HeftInput convertible ->
             { model
                 | inputHeft = convertible
                 , convertedHeft = heftConverter (String.toFloat convertible)
@@ -90,7 +90,7 @@ view model =
     span []
         [ input
             [ value model.inputTemp
-            , onInput InputTemperature
+            , onInput TemperatureInput
             , style "border-color" (drawConvertible model.convertedTemp)
             ]
             []
@@ -106,7 +106,7 @@ viewConverter convertible converted measurment =
         [ span []
             [ input
                 [ value convertible
-                , onInput InputTemperature
+                , onInput TemperatureInput
                 , style "border-color" "red"
                 ]
                 []
