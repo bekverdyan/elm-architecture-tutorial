@@ -23,12 +23,14 @@ type alias Model =
     , convertedTemp : Maybe Float
     , inputHeft : String
     , convertedHeft : Maybe Float
+    , inputLength : String
+    , convertedLength : Maybe Float
     }
 
 
 init : Model
 init =
-    Model "" Nothing "" Nothing
+    Model "" Nothing "" Nothing "" Nothing
 
 
 
@@ -38,6 +40,7 @@ init =
 type Msg
     = TemperatureInput String
     | HeftInput String
+    | LengthInput String
 
 
 update : Msg -> Model -> Model
@@ -53,6 +56,12 @@ update msg model =
             { model
                 | inputHeft = convertible
                 , convertedHeft = heftConverter (String.toFloat convertible)
+            }
+
+        LengthInput convertible ->
+            { model
+                | inputLength = convertible
+                , convertedLength = lengthConverter (String.toFloat convertible)
             }
 
 
