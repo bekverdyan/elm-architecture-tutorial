@@ -64,7 +64,12 @@ temperatureConverter convertible =
 view : Model -> Html Msg
 view model =
     div []
-        [ input [ value model.convertible, onInput Temperature ] []
+        [ input
+            [ value model.convertible
+            , onInput Temperature
+            , style "border-color" (drawBorder model.converted)
+            ]
+            []
         , div [] [ text (toString model.converted) ]
         ]
 
@@ -77,3 +82,13 @@ toString converted =
 
         Nothing ->
             "???"
+
+
+drawBorder : Maybe Float -> String
+drawBorder converted =
+    case converted of
+        Just _ ->
+            ""
+
+        Nothing ->
+            "red"
