@@ -20,13 +20,13 @@ main =
 
 type alias Model =
     { convertible : String
-    , converted : Float
+    , converted : Maybe Float
     }
 
 
 init : Model
 init =
-    Model "" 0
+    Model "" Nothing
 
 
 
@@ -47,14 +47,14 @@ update msg model =
             }
 
 
-temperatureConverter : Maybe Float -> Float
+temperatureConverter : Maybe Float -> Maybe Float
 temperatureConverter convertible =
     case convertible of
         Just celsius ->
-            celsius * 1.8 + 32
+            Just (celsius * 1.8 + 32)
 
         Nothing ->
-            0
+            Nothing
 
 
 
@@ -65,5 +65,15 @@ view : Model -> Html Msg
 view model =
     div []
         [ input [ value model.convertible, onInput Temperature ] []
-        , div [] [ text (String.fromFloat model.converted) ]
+        , div [] [ text (toString model.converted) ]
         ]
+
+
+toString : Maybe Float -> String
+toString converted =
+    case converted of
+        Just fahrenheit ->
+            String.fromFloat fahrenheit
+
+        Nothing ->
+            "???"
