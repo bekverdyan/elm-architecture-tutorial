@@ -106,7 +106,7 @@ viewConverter convertible converted measurment =
         [ span []
             [ input
                 [ value convertible
-                , onInput measurment
+                , onInput InputTemperature
                 , style "border-color" "red"
                 ]
                 []
