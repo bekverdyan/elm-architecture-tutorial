@@ -76,6 +76,16 @@ heftConverter convertible =
             Nothing
 
 
+lengthConverter : Maybe Float -> Maybe Float
+lengthConverter convertible =
+    case convertible of
+        Just meter ->
+            Just (meter * 3.2808)
+
+        Nothing ->
+            Nothing
+
+
 
 -- VIEW
 
