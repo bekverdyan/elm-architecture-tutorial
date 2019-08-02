@@ -63,14 +63,16 @@ temperatureConverter convertible =
 
 view : Model -> Html Msg
 view model =
-    div []
+    span []
         [ input
             [ value model.convertible
             , onInput Temperature
             , style "border-color" (drawBorder model.converted)
             ]
             []
-        , div [] [ text (toString model.converted) ]
+        , text "°C = "
+        , span [] [ text (toString model.converted) ]
+        , text "°F"
         ]
 
 
