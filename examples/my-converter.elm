@@ -80,39 +80,44 @@ heftConverter convertible =
 -- VIEW
 
 
-type Measurment
-    = Temperature
-    | Heft
+type alias Measurment =
+    { name : String
+    , convertibleSymbol : String
+    , convertedSymbol : String
+    }
 
 
 view : Model -> Html Msg
 view model =
-    span []
-        [ input
-            [ value model.inputTemp
-            , onInput TemperatureInput
-            , style "border-color" (drawConvertible model.convertedTemp)
-            ]
-            []
-        , text "°C = "
-        , span [ style "color" (drawConverted model.convertedTemp) ] [ text (toString model.convertedTemp) ]
-        , text "°F"
+    div []
+        [ viewConverter temperature model.inputTemp model.convertedTemp TemperatureInput
+        , viewConverter heft model.inputHeft model.convertedHeft HeftInput
         ]
 
 
-viewConverter : String -> String -> Measurment -> Html Msg
-viewConverter convertible converted measurment =
+temperature : Measurment
+temperature =
+    { name = "Temperature", convertibleSymbol = "°C = ", convertedSymbol = "°F" }
+
+
+heft : Measurment
+heft =
+    { name = "Heft", convertibleSymbol = "kilo", convertedSymbol = "lbs" }
+
+
+viewConverter : Measurment -> String -> Maybe Float -> (String -> Msg) -> Html Msg
+viewConverter measurment convertible converted toMsg =
     div []
         [ span []
             [ input
                 [ value convertible
-                , onInput TemperatureInput
-                , style "border-color" "red"
+                , onInput toMsg
+                , style "border-color" (drawConvertible converted)
                 ]
                 []
-            , text "measurment type here"
-            , span [ style "color" "green" ] [ text converted ]
-            , text "measurment type here"
+            , text measurment.convertibleSymbol
+            , span [ style "color" (drawConverted converted) ] [ text (toString converted) ]
+            , text measurment.convertedSymbol
             ]
         ]
 
