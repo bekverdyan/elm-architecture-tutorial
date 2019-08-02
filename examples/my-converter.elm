@@ -90,7 +90,9 @@ type alias Measurment =
 view : Model -> Html Msg
 view model =
     div []
-        [ viewConverter temperature model.inputTemp model.convertedTemp TemperatureInput
+        [ h3 [] [ text temperature.name ]
+        , viewConverter temperature model.inputTemp model.convertedTemp TemperatureInput
+        , h3 [] [ text heft.name ]
         , viewConverter heft model.inputHeft model.convertedHeft HeftInput
         ]
 
