@@ -100,6 +100,23 @@ view model =
         ]
 
 
+viewConverter : String -> String -> Measurment -> Html Msg
+viewConverter convertible converted measurment =
+    div []
+        [ span []
+            [ input
+                [ value convertible
+                , onInput measurment
+                , style "border-color" "red"
+                ]
+                []
+            , text "measurment type here"
+            , span [ style "color" "green" ] [ text converted ]
+            , text "measurment type here"
+            ]
+        ]
+
+
 toString : Maybe Float -> String
 toString converted =
     case converted of
