@@ -19,8 +19,8 @@ main =
 
 
 type alias Model =
-    { convertible : String
-    , converted : Maybe Float
+    { inputTemp : String
+    , convertedTemp : Maybe Float
     }
 
 
@@ -42,8 +42,8 @@ update msg model =
     case msg of
         Temperature convertible ->
             { model
-                | convertible = convertible
-                , converted = temperatureConverter (String.toFloat convertible)
+                | inputTemp = convertible
+                , convertedTemp = temperatureConverter (String.toFloat convertible)
             }
 
 
@@ -65,13 +65,13 @@ view : Model -> Html Msg
 view model =
     span []
         [ input
-            [ value model.convertible
+            [ value model.inputTemp
             , onInput Temperature
-            , style "border-color" (drawConvertible model.converted)
+            , style "border-color" (drawConvertible model.convertedTemp)
             ]
             []
         , text "°C = "
-        , span [ style "color" (drawConverted model.converted) ] [ text (toString model.converted) ]
+        , span [ style "color" (drawConverted model.convertedTemp) ] [ text (toString model.convertedTemp) ]
         , text "°F"
         ]
 
