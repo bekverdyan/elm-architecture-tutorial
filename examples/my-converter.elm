@@ -71,7 +71,7 @@ view model =
             ]
             []
         , text "°C = "
-        , span [] [ text (toString model.converted) ]
+        , span [ style "color" (drawConverted model.converted) ] [ text (toString model.converted) ]
         , text "°F"
         ]
 
@@ -91,6 +91,16 @@ drawConvertible converted =
     case converted of
         Just _ ->
             ""
+
+        Nothing ->
+            "red"
+
+
+drawConverted : Maybe Float -> String
+drawConverted converted =
+    case converted of
+        Just _ ->
+            "green"
 
         Nothing ->
             "red"
