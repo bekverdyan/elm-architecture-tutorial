@@ -21,12 +21,14 @@ main =
 type alias Model =
     { inputTemp : String
     , convertedTemp : Maybe Float
+    , inputHeft : String
+    , convertedHeft : Maybe Float
     }
 
 
 init : Model
 init =
-    Model "" Nothing
+    Model "" Nothing "" Nothing
 
 
 
@@ -35,6 +37,7 @@ init =
 
 type Msg
     = Temperature String
+    | Heft String
 
 
 update : Msg -> Model -> Model
@@ -46,12 +49,28 @@ update msg model =
                 , convertedTemp = temperatureConverter (String.toFloat convertible)
             }
 
+        Heft convertible ->
+            { model
+                | inputHeft = convertible
+                , convertedHeft = heftConverter (String.toFloat convertible)
+            }
+
 
 temperatureConverter : Maybe Float -> Maybe Float
 temperatureConverter convertible =
     case convertible of
         Just celsius ->
             Just (celsius * 1.8 + 32)
+
+        Nothing ->
+            Nothing
+
+
+heftConverter : Maybe Float -> Maybe Float
+heftConverter convertible =
+    case convertible of
+        Just kilo ->
+            Just (kilo / 0.45359237)
 
         Nothing ->
             Nothing
