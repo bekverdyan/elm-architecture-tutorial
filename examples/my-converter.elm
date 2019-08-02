@@ -67,7 +67,7 @@ view model =
         [ input
             [ value model.convertible
             , onInput Temperature
-            , style "border-color" (drawBorder model.converted)
+            , style "border-color" (drawConvertible model.converted)
             ]
             []
         , text "°C = "
@@ -86,8 +86,8 @@ toString converted =
             "???"
 
 
-drawBorder : Maybe Float -> String
-drawBorder converted =
+drawConvertible : Maybe Float -> String
+drawConvertible converted =
     case converted of
         Just _ ->
             ""
