@@ -80,6 +80,11 @@ heftConverter convertible =
 -- VIEW
 
 
+type Measurment
+    = Temperature
+    | Heft
+
+
 view : Model -> Html Msg
 view model =
     span []
